@@ -126,7 +126,7 @@ function OutputScreen({ capturedImage, onRestart }) {
 
   const handlePrint = () => {
     if (outputImage) {
-      const printWindow = window.open('', '_blank')
+      const printWindow = window.open('', '_self')
       printWindow.document.write(`
         <html>
           <head>
@@ -137,7 +137,7 @@ function OutputScreen({ capturedImage, onRestart }) {
             </style>
           </head>
           <body>
-            <img src="${outputImage}" onload="window.print(); window.close();" />
+            <img src="${outputImage}" onload="window.print();" />
           </body>
         </html>
       `)
