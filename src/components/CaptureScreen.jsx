@@ -94,9 +94,7 @@ function CaptureScreen({ onCapture, onBack }) {
         <canvas ref={canvasRef} style={{ display: 'none' }} />
       </div>
       <div className="capture-controls">
-        <button className="back-button" onClick={onBack}>
-          Back
-        </button>
+    
         <button
           className="capture-button"
           onClick={handleCapture}

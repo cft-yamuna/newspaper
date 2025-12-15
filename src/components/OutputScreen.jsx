@@ -124,22 +124,39 @@ function OutputScreen({ capturedImage, onRestart }) {
     }
   }
 
-  const handleDownload = () => {
+  const handlePrint = () => {
     if (outputImage) {
-      const link = document.createElement('a')
-      link.href = outputImage
-      link.download = `oneplus-times-${Date.now()}.png`
-      link.click()
+      const printWindow = window.open('', '_blank')
+      printWindow.document.write(`
+        <html>
+          <head>
+            <title>Print Newspaper</title>
+            <style>
+              body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+              img { max-width: 100%; max-height: 100vh; }
+            </style>
+          </head>
+          <body>
+            <img src="${outputImage}" onload="window.print(); window.close();" />
+          </body>
+        </html>
+      `)
+      printWindow.document.close()
     }
   }
 
   if (isLoading) {
     return (
       <div className="output-screen">
-        <div className="processing-content">
-          <div className="spinner"></div>
-          <h2>Creating your newspaper cover...</h2>
-        </div>
+        <video
+          className="processing-video"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src="/loading.mp4" type="video/mp4" />
+        </video>
         <canvas ref={canvasRef} style={{ display: 'none' }} />
       </div>
     )
@@ -151,8 +168,8 @@ function OutputScreen({ capturedImage, onRestart }) {
         <div className="error-content">
           <h2>Oops! Something went wrong</h2>
           <p>{error}</p>
-          <button className="restart-button" onClick={onRestart}>
-            Try Again
+          <button className="home-button" onClick={onRestart}>
+            Home
           </button>
         </div>
       </div>
@@ -161,38 +178,36 @@ function OutputScreen({ capturedImage, onRestart }) {
 
   return (
     <div className="output-screen">
-      <h2 className="output-title">Your Newspaper Cover!</h2>
-
-      <div className="output-container">
-        <div className="output-image-wrapper">
-          {outputImage && (
-            <img src={outputImage} alt="Your Newspaper" className="output-image" />
-          )}
-        </div>
-
-        {hasPublicUrl && downloadUrl && (
-          <div className="qr-section">
-            <p className="qr-label">Scan to Download</p>
-            <div className="qr-code">
-              <QRCodeSVG
-                value={downloadUrl}
-                size={150}
-                level="M"
-                includeMargin={true}
-              />
-            </div>
-          </div>
+      <div className="output-image-wrapper">
+        {outputImage && (
+          <img src={outputImage} alt="Your Newspaper" className="output-image" />
         )}
       </div>
 
-      <div className="output-controls">
-        <button className="download-button" onClick={handleDownload}>
-          Download
+      <div className="output-buttons">
+        <button className="print-button" onClick={handlePrint}>
+          Print My Paper
         </button>
-        <button className="restart-button" onClick={onRestart}>
-          Take Another Photo
+        <button className="home-button" onClick={onRestart}>
+          Home
         </button>
       </div>
+
+      {hasPublicUrl && downloadUrl && (
+        <div className="qr-section">
+          <div className="qr-code">
+            <QRCodeSVG
+              value={downloadUrl}
+              size={200}
+              level="M"
+              includeMargin={true}
+              bgColor="#ffffff"
+              fgColor="#000000"
+            />
+          </div>
+          {/* <p className="qr-label">Scan the QR code<br />to download</p> */}
+        </div>
+      )}
 
       <canvas ref={canvasRef} style={{ display: 'none' }} />
     </div>

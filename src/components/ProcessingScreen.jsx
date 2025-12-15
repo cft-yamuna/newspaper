@@ -3,11 +3,15 @@ import React from 'react'
 function ProcessingScreen() {
   return (
     <div className="processing-screen">
-      <div className="processing-content">
-        <div className="spinner"></div>
-        <h2 className="processing-title">Processing Your Photo...</h2>
-        <p className="processing-subtitle">Please wait while we create your newspaper cover</p>
-      </div>
+      <video
+        className="processing-video"
+        autoPlay
+        loop
+        muted
+        playsInline
+      >
+        <source src="/loading.mp4" type="video/mp4" />
+      </video>
     </div>
   )
 }
