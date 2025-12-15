@@ -74,7 +74,7 @@ body {
   border-radius: 20px;
   cursor: pointer;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(227, 24, 55, 0.4);
+
 }
 
 .start-button:hover {

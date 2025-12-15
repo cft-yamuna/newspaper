@@ -25,7 +25,7 @@ function OutputScreen({ capturedImage, onRestart }) {
       await new Promise((resolve, reject) => {
         newspaperImg.onload = resolve
         newspaperImg.onerror = reject
-        newspaperImg.src = '/newspaper.png'
+        newspaperImg.src = '/Newspaper1.png'
       })
 
       // Load the captured user image
@@ -36,10 +36,10 @@ function OutputScreen({ capturedImage, onRestart }) {
         userImg.src = capturedImage
       })
 
-      // Create canvas with fixed dimensions (842px × 1191px)
+      // Create canvas with fixed dimensions (1191px × 1684px - A3 size)
       const canvas = canvasRef.current
-      const CANVAS_WIDTH = 842
-      const CANVAS_HEIGHT = 1191
+      const CANVAS_WIDTH = 1191
+      const CANVAS_HEIGHT = 1684
 
       canvas.width = CANVAS_WIDTH
       canvas.height = CANVAS_HEIGHT
@@ -49,11 +49,11 @@ function OutputScreen({ capturedImage, onRestart }) {
       // Draw the newspaper template first (full canvas)
       ctx.drawImage(newspaperImg, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT)
 
-      // User image overlay position and size
-      const userImageX = 227.01
-      const userImageY = 365.37
-      const userImageWidth = 366.78
-      const userImageHeight = 446.03
+      // User image overlay position and size (scaled for A3)
+      const userImageX = 321.08
+      const userImageY = 516.63
+      const userImageWidth = 518.64
+      const userImageHeight = 630.88
 
       // Calculate crop to fill the target area while maintaining aspect ratio
       const userAspectRatio = userImg.width / userImg.height
