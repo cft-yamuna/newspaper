@@ -126,22 +126,7 @@ function OutputScreen({ capturedImage, onRestart }) {
 
   const handlePrint = () => {
     if (outputImage) {
-      const printWindow = window.open('', '_self')
-      printWindow.document.write(`
-        <html>
-          <head>
-            <title>Print Newspaper</title>
-            <style>
-              body { margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-              img { width: 1191px; height: 1684px; }
-            </style>
-          </head>
-          <body>
-            <img src="${outputImage}" onload="window.print();" />
-          </body>
-        </html>
-      `)
-      printWindow.document.close()
+      window.print()
     }
   }
 
